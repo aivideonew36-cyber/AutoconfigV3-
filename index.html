@@ -6,16 +6,6 @@
   <title>Série D — Agent v1.0</title>
   
   <link rel="manifest" href="manifest.json">
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
-          .then(reg => console.log('Service Worker Enregistré'))
-          .catch(err => console.log('Erreur SW', err));
-      });
-    }
-  </script>
-
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -41,29 +31,62 @@
     <div class="ds-icon">+</div>
   </header>
 
-  <main class="ds-main">
-    <div class="ds-logo">D</div>
-    <h1 class="ds-welcome">Comment puis-je vous aider ?</h1>
+  <main class="ds-main" id="chatContainer">
+    <div id="brainConfig" style="background: #1e293b; color: white; padding: 15px; border-radius: 12px; margin: 15px; border: 1px solid #3b82f6;">
+        <label style="display: block; margin-bottom: 8px; font-weight: bold; font-size: 13px;">🧠 CERVEAU (API GROQ)</label>
+        <div style="display: flex; gap: 8px;">
+            <input type="password" id="groqInput" placeholder="Coller gsk_ ici..." 
+                   style="flex: 1; padding: 10px; border-radius: 8px; border: none; background: #0f172a; color: white; font-size: 14px;">
+            <button onclick="saveGroqKey()" style="background: #3b82f6; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: bold;">OK</button>
+        </div>
+        <p id="groqStatus" style="font-size: 11px; margin-top: 8px; color: #94a3b8;">Statut : En attente...</p>
+    </div>
+
+    <div class="ds-logo" id="welcomeLogo">D</div>
+    <h1 class="ds-welcome" id="welcomeText">Comment puis-je vous aider ?</h1>
   </main>
 
   <footer class="ds-footer">
     <div class="ds-input-wrapper">
-      <textarea id="projectDescription" class="ds-textarea" placeholder="Décrivez votre projet..." rows="1"></textarea>
+      <textarea id="projectDescription" class="ds-textarea" placeholder="Dis 'Bonjour' pour commencer..." rows="1"></textarea>
       <div class="ds-actions">
         <div class="ds-left-btns">
           <button class="ds-pill-btn active">Réflexion</button>
-          <button class="ds-pill-btn">Recherche</button>
+          <button class="ds-pill-btn">Pilotage</button>
         </div>
         <button id="deployBtn" class="ds-send-btn">🚀</button>
       </div>
     </div>
   </footer>
 
-  <script type="module" src="app.js"></script>
   <script>
+    window.saveGroqKey = () => {
+        const key = document.getElementById('groqInput').value.trim();
+        const status = document.getElementById('groqStatus');
+        if (key.startsWith('gsk_')) {
+            localStorage.setItem('sd_groq', key);
+            status.innerText = "✅ Cerveau Opérationnel";
+            status.style.color = "#4ade80";
+            alert("🧠 Groq activé ! Ton pilote est prêt.");
+        } else {
+            alert("Erreur : La clé doit commencer par gsk_");
+        }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const saved = localStorage.getItem('sd_groq');
+        if (saved) {
+            document.getElementById('groqInput').value = saved;
+            document.getElementById('groqStatus').innerText = "✅ Cerveau Opérationnel";
+            document.getElementById('groqStatus').style.color = "#4ade80";
+        }
+    });
+
     function toggleMenu() {
       document.getElementById('sideMenu').classList.toggle('open');
     }
   </script>
+  
+  <script type="module" src="app.js"></script>
 </body>
 </html>
