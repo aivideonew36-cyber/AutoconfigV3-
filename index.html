@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Série D — Agent v1.0</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --text: #1F2937;
+      --muted: #6B7280;
+      --accent: #3B82F6;
+      --input-bg: #F9FAFB;
+      --border: #E5E7EB;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    
+    .header { height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; border-bottom: 1px solid var(--border); }
+    .header-title { font-weight: 500; font-size: 18px; }
+
+    .main-area { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+    .logo-placeholder { width: 64px; height: 64px; background: var(--accent); border-radius: 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 32px; }
+    .prompt-text { font-size: 20px; text-align: center; color: var(--text); }
+
+    .footer { padding: 16px; border-top: 1px solid var(--border); }
+    .input-box { background: var(--input-bg); border: 1px solid var(--border); border-radius: 24px; padding: 12px 16px; }
+    .textarea { width: 100%; background: transparent; border: none; font-size: 16px; resize: none; margin-bottom: 8px; font-family: inherit; }
+    
+    .controls { display: flex; justify-content: space-between; align-items: center; }
+    .btn-action { background: white; border: 1px solid var(--border); padding: 6px 12px; border-radius: 16px; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 6px; }
+    .btn-action.blue { background: #EFF6FF; color: var(--accent); border: none; }
+    .btn-send { background: none; border: none; color: var(--accent); font-size: 24px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div style="font-size:24px">☰</div>
+    <div class="header-title">Série D — Agent v1.0</div>
+    <div style="font-size:24px">+</div>
+  </header>
+
+  <main class="main-area">
+    <div class="logo-placeholder">D</div>
+    <h1 class="prompt-text">Comment puis-je vous aider à déployer ?</h1>
+  </main>
+
+  <footer class="footer">
+    <div class="input-box">
+      <textarea id="projectDescription" class="textarea" placeholder="Décrivez votre projet ici..." rows="1"></textarea>
+      <div class="controls">
+        <div style="display:flex; gap:8px;">
+          <button class="btn-action" onclick="alert('Configuration des jetons')">⚙️ Jetons</button>
+          <button class="btn-action blue" onclick="alert('Affichage des logs')">📊 Logs</button>
+        </div>
+        <button id="deployBtn" class="btn-send">🚀</button>
+      </div>
+    </div>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
